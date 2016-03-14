@@ -1,0 +1,1 @@
+A single page App that allows people to send messages and post comments on messages. When the page loads, it will load all of the messages and all of the comments for each message.

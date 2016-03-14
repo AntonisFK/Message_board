@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Message Board</title>
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<style>
+  .formComment{
+    display: none; 
+  }
+</style>
+<script>
+  $(document).ready(function(){
+    $('.comment').click(function(){
+      if($('.formComment').is(":visible")){
+        $('.formComment').hide();
+      }else{
+        $('.formComment').show(); 
+      }
+   
+    })
+  });
+
+
+</script>
+<body>
+  <div class="wrapper">
+    <h2>Wellcome to the messageboard</h2>
+    <div class="Postmessage">
+      <h3>Post a message</h3>
+      <form action="/post" method= "post">
+        <label for="name">Name</label>
+        <br>
+        <input type="text" name="name" >
+        <br>
+        <label for="message">Message</label>
+        <br>
+        <textarea name="message" id="message" cols="30" rows="10"></textarea>
+        <br>
+        <input type="submit" value= "submit">
+      </form>
+    </div>
+    <div class="showMessage">
+    
+      <% for( var x in messages) { %> 
+      <h3><b>Name:</b> <%=messages[x].name%> </h3>
+      <p><b>Message:</b><%=messages[x].text%> </p>
+      <% for(var y of messages[x].comments){ %>
+      <p><b>Comment:  </b></p>
+      <ul>
+        <li><%= y.text %></li>
+      </ul>
+    <%}%> 
+      <button class="comment">Comment</button>
+
+      <div class="formComment">
+        <form action="/comment" method= "post">
+          <label for="name">Name</label>
+          <br>
+          <input type="text" name="name" >
+          <br>
+          <label for="comment">Comment</label>
+          <br>
+          <textarea name="comment" id="comment" cols="20" rows="8"></textarea>
+          <br>
+          <input type="hidden" name='post_id' value="<%=messages[x].id%>">
+          <input type="submit" value="Post Comment">
+        </form>
+      </div>  
+    
+      <%}%>
+    </div>
+
+
+
+  </div>
+</body>
+</html>
